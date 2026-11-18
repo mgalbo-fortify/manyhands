@@ -419,9 +419,19 @@ html:not(.js-story) .stage .mood-stressed{{display:none}}html:not(.js-story) .st
 .steps h3{{color:#fff}}
 .steps p{{font-size:16px;line-height:1.6;margin:0;color:#D6E3DB}}
 .how-pinned{{height:300vh}}
-.how-pinned .how-stick{{position:sticky;top:0;min-height:100vh;justify-content:center}}
+.how-pinned .how-stick{{position:sticky;top:0;height:100vh;justify-content:center;overflow:hidden;padding-top:76px;padding-bottom:28px}}
 .how-pinned .steps li{{opacity:.28;transform:translateY(14px)}}
 .how-pinned .steps li.on{{opacity:1;transform:none}}
+/* compact: one step at a time, swapping as the weeks fill */
+.how-compact .how-stick{{gap:22px}}
+.how-compact .steps{{position:relative;display:block}}
+.how-compact .steps li{{position:absolute;top:0;left:0;right:0;opacity:0;transform:translateY(16px);pointer-events:none}}
+.how-compact .steps li.on{{opacity:0;transform:translateY(16px)}}
+.how-compact .steps li.cur{{opacity:1;transform:none;pointer-events:auto}}
+.how-compact .steps .art{{padding:12px;align-self:flex-start;width:100%;max-width:300px}}
+.how-compact .steps .art svg{{max-width:150px!important}}
+.how-tight .steps .art{{display:none}}
+.how-tight .how-stick .body{{font-size:15px}}
 .steps .art svg{{max-width:170px!important}}
 
 @media (max-width:860px){{
@@ -433,7 +443,6 @@ html:not(.js-story) .stage .mood-stressed{{display:none}}html:not(.js-story) .st
   .progress-dots span{{width:18px}}
   header.wrap{{flex-wrap:nowrap!important}} header .btn{{min-height:40px!important;font-size:14px!important;padding:0 14px!important}}
   .steps{{grid-template-columns:1fr;gap:16px}}
-  .steps .art{{display:none}}
   .pill .dots{{display:none}}
   .navlink{{display:none}}
 }}

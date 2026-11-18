@@ -92,16 +92,31 @@
   // On phones, crop Maria's scene tighter so she reads larger beside the text.
   const stageSvg = $('.stage-svg', story);
   function fitStage() { stageSvg.setAttribute('viewBox', innerWidth <= 860 ? '190 112 530 424' : '120 60 640 480'); }
+  // How it works always pins. If the three steps don't fit side by side, it shows one step
+  // at a time (compact), and drops the drawings too if the screen is very short (tight).
+  const stepsEl = $('.steps', how);
+  const natural = () => { howStick.style.height = 'auto'; const h = howStick.offsetHeight; howStick.style.height = ''; return h; };
+  function setStepsHeight() {
+    stepsEl.style.height = '';
+    if (!how.classList.contains('how-compact')) return;
+    stepsEl.style.height = Math.max(...stepEls.map(li => li.offsetHeight)) + 'px';
+  }
   function fitHow() {
     fitStage();
-    how.classList.remove('how-pinned');
-    const fits = innerWidth > 860 && howStick.offsetHeight <= innerHeight - 20;
-    how.classList.toggle('how-pinned', fits);
+    how.classList.remove('how-compact', 'how-tight');
+    how.classList.add('how-pinned');
+    setStepsHeight();
+    const room = innerHeight;
+    if (innerWidth > 860 && natural() <= room) return;
+    how.classList.add('how-compact'); setStepsHeight();
+    if (natural() <= room) return;
+    how.classList.add('how-tight'); setStepsHeight();
   }
   function drawHow(q) {
     if (!how.classList.contains('how-pinned')) q = 1;
     bars.forEach((el, k) => el.style.setProperty('--f', clamp(q * 4.4 - k).toFixed(3)));
-    stepEls.forEach((el, k) => el.classList.toggle('on', q >= [0, .34, .7][k]));
+    const cur = q < .34 ? 0 : q < .7 ? 1 : 2;
+    stepEls.forEach((el, k) => { el.classList.toggle('on', k <= cur); el.classList.toggle('cur', k === cur); });
   }
 
   const progress = el => {
