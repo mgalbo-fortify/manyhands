@@ -85,9 +85,21 @@
 
   /* ---------- How it works */
   const how = $('#how');
+  const howStick = $('.how-stick', how);
   const bars = $$('.week .bar i', how);
   const stepEls = $$('.steps li', how);
+  // Pin How it works only when the whole section fits on screen; otherwise it scrolls normally.
+  // On phones, crop Maria's scene tighter so she reads larger beside the text.
+  const stageSvg = $('.stage-svg', story);
+  function fitStage() { stageSvg.setAttribute('viewBox', innerWidth <= 860 ? '190 112 530 424' : '120 60 640 480'); }
+  function fitHow() {
+    fitStage();
+    how.classList.remove('how-pinned');
+    const fits = innerWidth > 860 && howStick.offsetHeight <= innerHeight - 20;
+    how.classList.toggle('how-pinned', fits);
+  }
   function drawHow(q) {
+    if (!how.classList.contains('how-pinned')) q = 1;
     bars.forEach((el, k) => el.style.setProperty('--f', clamp(q * 4.4 - k).toFixed(3)));
     stepEls.forEach((el, k) => el.classList.toggle('on', q >= [0, .34, .7][k]));
   }
@@ -105,6 +117,9 @@
   }
   const ask = () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } };
   addEventListener('scroll', ask, { passive: true });
-  addEventListener('resize', ask);
+  addEventListener('resize', () => { fitHow(); ask(); });
+  addEventListener('load', () => { fitHow(); ask(); });
+  if (document.fonts) document.fonts.ready.then(() => { fitHow(); ask(); });
+  fitHow();
   frame();
 })();

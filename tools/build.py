@@ -39,7 +39,7 @@ S = f'stroke="{LINE}" stroke-width="2" stroke-linecap="round" stroke-linejoin="r
 
 # ---------------------------------------------------------------- shared SVG defs
 DEFS = f'''<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
-<filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="2.6" xChannelSelector="R" yChannelSelector="G"/></filter>
+<filter id="rough" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="1.6" xChannelSelector="R" yChannelSelector="G"/></filter>
 <filter id="b1" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="1"/><feDisplacementMap in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
 <filter id="b2" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
 <filter id="b3" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="13"/><feDisplacementMap in="SourceGraphic" scale="3" xChannelSelector="R" yChannelSelector="G"/></filter>
@@ -73,7 +73,7 @@ def maria(mood):
         out.append(f'<path d="M-34 -94 Q-64 -50 -70 -6" {L(2.2)}/><circle cx="-70" cy="-6" r="9" fill="{skin}" {S}/>')
         out.append(f'<g class="ring"><path d="M60 -168 Q68 -160 62 -150 M68 -176 Q80 -160 70 -144" {L(1.8)}/></g>')
     elif mood == "happy":
-        out.append(f'<path d="M34 -94 Q72 -70 96 -86" {L(2.2)}/><g transform="translate(100,-88) rotate(-20)"><path d="M-8 -8 Q2 -14 10 -8 Q14 0 8 8 Q-2 12 -8 6 Z" fill="{skin}" {S}/><path d="M6 -10 L14 -18 M10 -4 L20 -10" {L(1.6)}/></g>')
+        out.append(f'<path d="M34 -94 Q72 -70 96 -86" {L(2.2)}/><g transform="translate(100,-88) rotate(-20)"><path d="M-8 -8 Q2 -14 10 -8 Q14 0 8 8 Q-2 12 -8 6 Z" fill="{skin}" {S}/></g>')
         out.append(f'<path d="M-34 -94 Q-40 -40 -10 -8" {L(2.2)}/><circle cx="-8" cy="-6" r="9" fill="{skin}" {S}/>')
     else:
         out.append(f'<path d="M34 -94 Q58 -50 50 -8" {L(2.2)}/><circle cx="50" cy="-6" r="9" fill="{skin}" {S}/>')
@@ -101,14 +101,14 @@ def customer(happy):
 
 
 def small_person(x, y, s, shirt, skin, hair=LINE, wave=False, bun=False, apron=False, facing=1):
-    arm_r = (f'<path d="M9 -52 Q20 -64 24 -80" {L(2)}/><circle cx="25" cy="-83" r="4" fill="{skin}" {S} stroke-width="1.6"/>'
-             if wave else f'<path d="M9 -52 Q14 -38 12 -26" {L(2)}/><circle cx="12" cy="-24" r="3.5" fill="{skin}" {S} stroke-width="1.6"/>')
+    arm_r = (f'<path d="M10 -54 L19 -63 L22 -78" {L(2.2)}/><circle cx="22" cy="-81" r="3.6" fill="{skin}" {S} stroke-width="1.5"/>'
+             if wave else f'<path d="M10 -54 L14 -40 L13 -29" {L(2.2)}/><circle cx="13" cy="-26" r="3.4" fill="{skin}" {S} stroke-width="1.5"/>')
     ap = f'<path d="M-7 -44 L-8 -24 L8 -24 L7 -44 Z" fill="{SAGE}" {S} stroke-width="1.5"/>' if apron else ""
     b = f'<circle cx="6" cy="-92" r="6" fill="{hair}" {S} stroke-width="1.5"/>' if bun else ""
     return f'''<g transform="translate({x},{y}) scale({s * facing},{s})"><g class="boil">
   <path d="M-5 -24 L-6 0 M5 -24 L6 0" {L(2)}/><path d="M-10 0 H-4 M4 0 H10" {L(2)}/>
   <path d="M-12 -58 Q0 -64 12 -58 L14 -24 L-14 -24 Z" fill="{shirt}" {S} stroke-width="1.8"/>{ap}
-  <path d="M-9 -52 Q-14 -38 -12 -26" {L(2)}/><circle cx="-12" cy="-24" r="3.5" fill="{skin}" {S} stroke-width="1.6"/>{arm_r}
+  <path d="M-10 -54 L-14 -40 L-13 -29" {L(2.2)}/><circle cx="-13" cy="-26" r="3.4" fill="{skin}" {S} stroke-width="1.5"/>{arm_r}
   {b}<circle cx="0" cy="-74" r="10" fill="{skin}" {S} stroke-width="1.8"/>
   <path d="M-10 -76 Q-10 -86 0 -86 Q10 -86 10 -76 Q4 -81 -10 -76 Z" fill="{hair}"/>
   <circle cx="-3.5" cy="-73" r="1.2" fill="{LINE}"/><circle cx="3.5" cy="-73" r="1.2" fill="{LINE}"/><path d="M-3 -68 Q0 -66 3 -68" {L(1.3)}/>
@@ -193,16 +193,16 @@ def building(x, w, h, fill, sign, kind):
         extra = (f'<g transform="translate({dx + 17},{base - 50})"><g class="sign-swing"><path d="M-8 -12 L0 -20 L8 -12" {L(1.4)}/>'
                  f'<rect x="-14" y="-12" width="28" height="13" rx="2" fill="{BUTTER}" {S} stroke-width="1.4"/>'
                  f'<text x="0" y="-2.5" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="7.5" font-weight="700" fill="{INK}">OPEN</text></g></g>')
-    return "".join(out) + '<g filter="url(#rough)">' + "".join(g) + "</g>" + txt + extra
+    return "".join(out) + '<g>' + "".join(g) + "</g>" + txt + extra
 
 
 def tree(x, r=24, fill=SAGE):
     return (f'<circle cx="{x + 7}" cy="{380 - 46 - r + 6}" r="{r}" fill="{fill}"/>'
-            f'<g filter="url(#rough)"><circle cx="{x}" cy="{380 - 46 - r}" r="{r}" {L(2)}/><path d="M{x} {380 - 46} V380" {L(2.2)}/></g>')
+            f'<g><circle cx="{x}" cy="{380 - 46 - r}" r="{r}" {L(2)}/><path d="M{x} {380 - 46} V380" {L(2.2)}/></g>')
 
 
 def cloud(x, y, s, cls):
-    return (f'<g transform="translate({x},{y}) scale({s})"><g class="{cls}"><path filter="url(#rough)" {L(1.8)} '
+    return (f'<g transform="translate({x},{y}) scale({s})"><g class="{cls}"><path {L(1.8)} '
             f'd="M-50 16 C-58 0 -38 -12 -24 -6 C-18 -24 12 -26 18 -8 C32 -16 54 -4 46 12 C56 16 52 26 40 26 L-42 26 C-56 26 -60 20 -50 16 Z"/></g></g>')
 
 
@@ -218,7 +218,7 @@ def hero_svg():
     for i, b in enumerate(blds):
         p.append(f'<g class="rise" style="animation-delay: {0.1 + i * 0.1:.2f}s">{building(*b)}</g>')
     p.append(tree(36, 20) + tree(1150, 26))
-    p.append(f'<path d="M0 380 H1200" {L(2.4)} filter="url(#rough)"/>')
+    p.append(f'<path d="M0 380 H1200" {L(2.4)}/>')
     p.append(small_person(118, 410, 1.25, BUTTER, SKIN[0], hair="#5B3A2A", wave=True, bun=True, apron=True))
     p.append(small_person(172, 410, 1.2, SKY, SKIN[1], facing=-1))
     p.append(small_person(640, 410, 1.2, PEACH, SKIN[2]))
@@ -348,9 +348,9 @@ h3{{font-size:24px;line-height:1.2}}
 .boil{{animation:boil .5s steps(1) infinite}}
 @keyframes rise{{from{{opacity:0;transform:translateY(24px)}}to{{opacity:1;transform:none}}}}
 .rise{{animation:rise .9s var(--glide) both}}
-@keyframes drift{{0%{{transform:translateX(-12px)}}50%{{transform:translateX(4px)}}100%{{transform:translateX(16px)}}}}
-.drift-a{{animation:drift 9s steps(9) infinite alternate}}
-.drift-b{{animation:drift 12s steps(12) infinite alternate-reverse}}
+@keyframes drift{{from{{transform:translateX(-18px)}}to{{transform:translateX(22px)}}}}
+.drift-a{{animation:drift 14s ease-in-out infinite alternate}}
+.drift-b{{animation:drift 18s ease-in-out infinite alternate-reverse}}
 @keyframes swing{{0%,100%{{transform:rotate(-7deg)}}50%{{transform:rotate(7deg)}}}}
 .sign-swing{{transform-box:fill-box;transform-origin:50% 0;animation:swing 2.4s steps(6) infinite}}
 @keyframes spin{{to{{transform:rotate(360deg)}}}}
@@ -379,7 +379,8 @@ transform:translate(-50%,-140%);transition:transform .5s var(--glide)}}
 
 /* the story: pinned, scroll-scrubbed */
 .story{{position:relative;background:var(--bg)}}
-.story-stick{{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:40px;align-items:center;max-width:1240px;margin:0 auto;padding:0 24px}}
+.story-stick{{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center;max-width:1160px;margin:0 auto;padding:0 24px}}
+.stage{{width:100%;max-width:520px;justify-self:center}}
 .stage{{position:relative;border-radius:28px;overflow:hidden;background:#F7F2E9;border:1px solid var(--rule)}}
 .stage-svg{{display:block;width:100%;height:auto}}
 .beats{{position:relative}}
@@ -417,21 +418,22 @@ html:not(.js-story) .stage .mood-stressed{{display:none}}html:not(.js-story) .st
 .steps .art{{padding:18px;border-radius:20px;background:#fff;display:flex;justify-content:center}}
 .steps h3{{color:#fff}}
 .steps p{{font-size:16px;line-height:1.6;margin:0;color:#D6E3DB}}
-.js-story .how{{height:300vh}}
-.js-story .how-stick{{position:sticky;top:0;min-height:100vh;justify-content:center}}
-.js-story .steps li{{opacity:.28;transform:translateY(14px)}}
-.js-story .steps li.on{{opacity:1;transform:none}}
+.how-pinned{{height:300vh}}
+.how-pinned .how-stick{{position:sticky;top:0;min-height:100vh;justify-content:center}}
+.how-pinned .steps li{{opacity:.28;transform:translateY(14px)}}
+.how-pinned .steps li.on{{opacity:1;transform:none}}
+.steps .art svg{{max-width:170px!important}}
 
 @media (max-width:860px){{
-  .story-stick{{grid-template-columns:1fr;gap:6px;align-content:center}} .stage{{order:-1}}
-  .js-story .story-stick{{grid-template-rows:auto auto;padding-top:72px}}
-  .js-story .beats{{height:min(400px,calc(100vh - 72px - 74vw - 40px))}}
-  .beat{{gap:8px;padding:12px 0}} .beat .body{{font-size:15.5px;line-height:1.55}} .beat h3{{font-size:22px!important}} .beat blockquote{{font-size:14px;padding:10px 12px}}
-  .js-story .how{{height:auto}} .js-story .how-stick{{position:static;min-height:0}} .js-story .steps li{{opacity:1;transform:none}}
+  .story-stick{{grid-template-columns:minmax(0,46fr) minmax(0,54fr);gap:14px;padding:0 14px}} .stage{{order:-1;border-radius:16px}}
+  .js-story .story-stick{{padding-top:64px}}
+  .js-story .beats{{height:min(560px,calc(100vh - 110px))}}
+  .beat{{gap:7px;padding:8px 0}} .beat .eyebrow{{font-size:11px}} .beat .tag{{font-size:11.5px;padding:4px 9px}}
+  .beat .body{{font-size:14px;line-height:1.5}} .beat h3{{font-size:19px!important}} .beat blockquote{{font-size:12.5px;padding:9px 10px}}
+  .progress-dots span{{width:18px}}
   header.wrap{{flex-wrap:nowrap!important}} header .btn{{min-height:40px!important;font-size:14px!important;padding:0 14px!important}}
   .steps{{grid-template-columns:1fr;gap:16px}}
-  .js-story .how{{height:260vh}}
-  .js-story .steps .art{{display:none}}
+  .steps .art{{display:none}}
   .pill .dots{{display:none}}
   .navlink{{display:none}}
 }}
